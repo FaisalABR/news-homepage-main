@@ -1,11 +1,12 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
+import { IconContext } from "react-icons";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { AiOutlineClose } from "react-icons/ai";
 
 import "./header.css";
 
 const Header = () => {
   const [sideMenu, setSideMenu] = useState(false);
-  const ulRef = useRef(null);
 
   const handleClick = () => {
     setSideMenu(!sideMenu);
@@ -24,13 +25,21 @@ const Header = () => {
           />
         </svg>
       </div>
-      <ul ref={ulRef} className={sideMenu ? "active" : ""}>
-        <li>Home</li>
-        <li>New</li>
-        <li>Popular</li>
-        <li>Trending</li>
-        <li>Categories</li>
-      </ul>
+
+      <nav className={`navbar ${sideMenu ? "active" : ""}`}>
+        <ul>
+          {sideMenu && (
+            <IconContext.Provider value={{ className: "close" }}>
+              <AiOutlineClose onClick={handleClick} />
+            </IconContext.Provider>
+          )}
+          <li>Home</li>
+          <li>New</li>
+          <li>Popular</li>
+          <li>Trending</li>
+          <li>Categories</li>
+        </ul>
+      </nav>
       <div className="hamburger">
         <GiHamburgerMenu onClick={handleClick} />
       </div>
